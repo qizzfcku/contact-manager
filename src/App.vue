@@ -3,11 +3,13 @@
     <h1 class="text-2xl font-bold mb-4">Управление контактами</h1>
     <SearchBar @search="searchContacts" />
     <ContactForm @save="saveContact" :editingContact="editingContact" />
-    <ContactList
-      :contacts="filteredContacts"
-      @edit="editContact"
-      @delete="deleteContact"
-    />
+    <transition-group name="list" tag="div">
+      <ContactList
+        :contacts="filteredContacts"
+        @edit="editContact"
+        @delete="deleteContact"
+      />
+    </transition-group>
   </div>
 </template>
 
@@ -81,4 +83,11 @@ export default defineComponent({
 </script>
 
 <style>
+.list-enter-active, .list-leave-active {
+  transition: all 0.3s;
+}
+.list-enter, .list-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
 </style>

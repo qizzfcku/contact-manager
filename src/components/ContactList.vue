@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-4">
+  <transition-group name="list" tag="div" class="mt-4">
     <div v-for="contact in contacts" :key="contact.id" class="mb-2">
       <ContactItem
         :contact="contact"
@@ -7,7 +7,7 @@
         @delete="() => $emit('delete', contact.id)"
       />
     </div>
-  </div>
+  </transition-group>
 </template>
 
 <script lang="ts">
@@ -33,5 +33,12 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style scoped>
+.list-enter-active, .list-leave-active {
+  transition: all 0.3s;
+}
+.list-enter, .list-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
 </style>
